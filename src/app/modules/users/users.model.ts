@@ -1,5 +1,5 @@
 import { Model, Schema, model } from 'mongoose'
-import { Iuser } from './user.interface'
+import { Iuser } from './users.interface'
 
 type UserModel = Model<Iuser, object>
 
