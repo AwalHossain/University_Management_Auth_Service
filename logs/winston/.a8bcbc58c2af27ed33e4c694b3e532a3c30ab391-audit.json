@@ -9,6 +9,11 @@
             "date": 1686289487392,
             "name": "/workspaces/University-Management/logs/winston/success-2023-09-06-05.log",
             "hash": "2c251149d984b16810b9d1176c1d22942001f9994b459174c2aaeeb8bb6fce5b"
+        },
+        {
+            "date": 1686291326223,
+            "name": "/workspaces/University-Management/logs/winston/success-2023-09-06-06.log",
+            "hash": "0b0298a19cca97ac04e89687eebfac651444bd09aee2b62ee4799ba3455da181"
         }
     ],
     "hashType": "sha256"

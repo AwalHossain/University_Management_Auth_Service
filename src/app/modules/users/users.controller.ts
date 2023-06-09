@@ -1,7 +1,7 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import usersService from './users.service'
 
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = req.body
   // console.log(user, 'user')
 
@@ -14,10 +14,7 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     })
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    })
+    next(err)
   }
 }
 
