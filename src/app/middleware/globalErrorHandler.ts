@@ -1,18 +1,12 @@
-import { NextFunction, Request, Response } from 'express'
+import { ErrorRequestHandler } from 'express'
 import config from '../../config'
 import { errorLogger } from '../../shared/logger'
 import { IGenericErrorMessage } from '../../interfaces/error'
 import handleValidationError from '../../errors/handleValidationError'
 import { IGenericErrorResponse } from '../../interfaces/common'
 import ApiError from '../../errors/ApiError'
-import { Error } from 'mongoose'
 
-const globalErrorHandler = (
-  error: Error.ValidationError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   // eslint-disable-next-line no-unused-expressions
   config.env === 'development'
     ? console.log(`globalErrorHandleer`, error)

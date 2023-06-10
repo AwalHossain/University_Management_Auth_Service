@@ -1,10 +1,10 @@
 // route
 
 import { Router } from 'express'
-import usersController from './users.controller'
+import { UserController } from './users.controller'
 
 const router = Router()
 
-router.post('/', usersController.createUser)
+router.post('/', UserController.createUser)
 
-export default router
+export const UserRoutes = router
