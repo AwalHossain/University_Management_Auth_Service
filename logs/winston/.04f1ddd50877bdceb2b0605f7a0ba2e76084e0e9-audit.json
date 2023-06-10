@@ -14,6 +14,16 @@
             "date": 1686291326226,
             "name": "/workspaces/University-Management/logs/winston/error-2023-09-06-06.log",
             "hash": "f28a29a48bf7cc17755543104549597d6bacb08cafcfa1b833bc51e86911d482"
+        },
+        {
+            "date": 1686393087695,
+            "name": "/workspaces/University-Management/logs/winston/error-2023-10-06-10.log",
+            "hash": "d8aff45f55edb4a02b42100347cb57f9f9d831fdcebf2c6c16d3ca8e49d6168b"
+        },
+        {
+            "date": 1686395598531,
+            "name": "/workspaces/University-Management/logs/winston/error-2023-10-06-11.log",
+            "hash": "db0dea84cb0af7958894ccdc7a1e8dcad4f7d189f7aee05dabcd9a190262024b"
         }
     ],
     "hashType": "sha256"
