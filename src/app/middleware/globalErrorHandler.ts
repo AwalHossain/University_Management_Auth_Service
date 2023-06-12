@@ -5,6 +5,8 @@ import { IGenericErrorMessage } from '../../interfaces/error'
 import handleValidationError from '../../errors/handleValidationError'
 import { IGenericErrorResponse } from '../../interfaces/common'
 import ApiError from '../../errors/ApiError'
+import { ZodError } from 'zod'
+import handZodError from '../../errors/handleZodError'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   // eslint-disable-next-line no-unused-expressions
@@ -18,6 +20,11 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
 
   if (error.name === 'ValidationError') {
     const simplifiedError: IGenericErrorResponse = handleValidationError(error)
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessages
+  } else if (error instanceof ZodError) {
+    const simplifiedError = handZodError(error)
     statusCode = simplifiedError.statusCode
     message = simplifiedError.message
     errorMessages = simplifiedError.errorMessages

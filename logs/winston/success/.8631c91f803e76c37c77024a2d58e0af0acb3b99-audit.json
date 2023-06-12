@@ -1,20 +1,25 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "/workspaces/University-Management/logs/winston/success/.8631c91f803e76c37c77024a2d58e0af0acb3b99-audit.json",
-  "files": [
-    {
-      "date": 1686545043479,
-      "name": "/workspaces/University-Management/logs/winston/success/success-2023-12-06-04.log",
-      "hash": "781d5c0ce05092028e84087e3cc791ff77d993582caec31475fe3df3fa268be8"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1686546008476,
-      "name": "/workspaces/University-Management/logs/winston/success/success-2023-12-06-05.log",
-      "hash": "394f654655b870daddc2f2b53dbc720ddde2ea1279114512df0c81694b035b73"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "/workspaces/University-Management/logs/winston/success/.8631c91f803e76c37c77024a2d58e0af0acb3b99-audit.json",
+    "files": [
+        {
+            "date": 1686545043479,
+            "name": "/workspaces/University-Management/logs/winston/success/success-2023-12-06-04.log",
+            "hash": "781d5c0ce05092028e84087e3cc791ff77d993582caec31475fe3df3fa268be8"
+        },
+        {
+            "date": 1686546008476,
+            "name": "/workspaces/University-Management/logs/winston/success/success-2023-12-06-05.log",
+            "hash": "394f654655b870daddc2f2b53dbc720ddde2ea1279114512df0c81694b035b73"
+        },
+        {
+            "date": 1686586647130,
+            "name": "/workspaces/University-Management/logs/winston/success/success-2023-12-06-16.log",
+            "hash": "d22766cb67056b6fe096696378d56d00e7805d682eba099498f9c29e0dcb77ad"
+        }
+    ],
+    "hashType": "sha256"
 }
