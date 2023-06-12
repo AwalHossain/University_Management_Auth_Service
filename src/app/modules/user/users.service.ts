@@ -1,8 +1,8 @@
 import config from '../../../config'
 import ApiError from '../../../errors/ApiError'
 import { generateUserId } from './user.utils'
-import { Iuser } from './users.interface'
-import { User } from './users.model'
+import { Iuser } from './user.interface'
+import { User } from './user.model'
 
 const createUser = async (user: Iuser): Promise<Iuser | null> => {
   // auto generate id
