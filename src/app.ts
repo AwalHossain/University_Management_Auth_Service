@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import { UserRoutes } from './app/modules/user/user.route'
 import globalErrorHandler from './app/middleware/globalErrorHandler'
+import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route'
 
 const app: Application = express()
 
@@ -13,6 +14,7 @@ console.log(process.env.PORT, 'port')
 
 // Routes
 app.use('/api/v1/users', UserRoutes)
+app.use('/api/v1/academic-semester', AcademicSemesterRoutes)
 
 // Test route
 // app.get('/', async (req: Request, res: Response) => {

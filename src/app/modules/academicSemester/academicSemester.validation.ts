@@ -15,6 +15,7 @@ const academicSemesterZodSchema = z.object({
     }),
     code: z.enum([...academicSemesterCodes] as [string, ...string[]]),
     startMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]),
+    endMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]),
   }),
 })
 
