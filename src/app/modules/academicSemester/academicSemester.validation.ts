@@ -5,7 +5,7 @@ import {
   academicSemesterTitles,
 } from './academicSemester.constant'
 
-const academicSemesterZodValidationSchema = z.object({
+const academicSemesterZodSchema = z.object({
   body: z.object({
     title: z.enum([...academicSemesterTitles] as [string, ...string[]], {
       required_error: 'Title is required',
@@ -19,5 +19,5 @@ const academicSemesterZodValidationSchema = z.object({
 })
 
 export const academicSemesterValidation = {
-  academicSemesterZodValidationSchema,
+  academicSemesterZodSchema,
 }
