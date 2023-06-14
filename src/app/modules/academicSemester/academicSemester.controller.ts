@@ -5,6 +5,7 @@ import sendResponse from '../../../shared/sendResponse'
 import { IAcademicSemester } from './academicSemester.interface'
 import { AcademicSemesterService } from './academicSemester.service'
 
+// create semester controller
 const createSemester: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { ...academicSemesterData } = req.body
