@@ -1,9 +1,9 @@
 // route
 
 import { Router } from 'express'
+import validateRequest from '../../middleware/validateRequest'
 import { AcademicsSemesterController } from './academicSemester.controller'
 import { academicSemesterValidation } from './academicSemester.validation'
-import validateRequest from '../../middleware/validateRequest'
 
 const router = Router()
 
@@ -12,5 +12,6 @@ router.post(
   validateRequest(academicSemesterValidation.academicSemesterZodSchema),
   AcademicsSemesterController.createSemester
 )
+router.get('/', AcademicsSemesterController.getAllSemester)
 
 export const AcademicSemesterRoutes = router
