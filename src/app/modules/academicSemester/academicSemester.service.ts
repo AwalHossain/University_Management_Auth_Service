@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper'
 import { IGenericResponse } from '../../../interfaces/common'
 import { IpaginationOptions } from '../../../interfaces/pagination'
 import {
-  academicSemesterFilterableFields,
+  academicSemesterSearchableFields,
   academicSemesterTitleCodeMappping,
 } from './academicSemester.constant'
 import {
@@ -38,7 +38,7 @@ const getAllSemester = async (
   const andConditions = []
   if (searchTerm) {
     andConditions.push({
-      $or: academicSemesterFilterableFields.map(field => ({
+      $or: academicSemesterSearchableFields.map(field => ({
         [field]: {
           $regex: searchTerm,
           $options: 'i',
@@ -63,13 +63,12 @@ const getAllSemester = async (
     sortCondition[sortBy] = sortOrder
   }
 
-  const whereCondition = andConditions.length > 0 ? { $and: andConditions } : {}
+  // const whereCondition = andConditions.length > 0 ? { $and: andConditions } : {}
 
-  const result = await AcademicSemester.find(whereCondition)
+  const result = await AcademicSemester.find({ $and: andConditions })
     .sort(sortCondition)
     .skip(skip)
     .limit(limit)
-    .exec()
 
   const total = await AcademicSemester.countDocuments()
 
