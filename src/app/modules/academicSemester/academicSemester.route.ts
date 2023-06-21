@@ -20,6 +20,8 @@ router.patch(
   AcademicsSemesterController.updateSemester
 )
 
+router.delete('/:id', AcademicsSemesterController.deleteSemester)
+
 router.get('/', AcademicsSemesterController.getAllSemester)
 
 export const AcademicSemesterRoutes = router
