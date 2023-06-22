@@ -1,11 +1,11 @@
 import { Model } from 'mongoose'
 
-export type IacademicFaculty = {
+export type IAcademicFaculty = {
   title: string
 }
 
-export type academicFacultyModel = Model<
-  IacademicFaculty,
+export type IAcademicFacultyModel = Model<
+  IAcademicFaculty,
   Record<string, unknown>
 >
 
