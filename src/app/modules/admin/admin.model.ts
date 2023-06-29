@@ -1,33 +1,80 @@
-import { Model, Types } from 'mongoose'
-import { UserName } from '../student/student.interface'
+import { Schema, model } from 'mongoose'
+import { AdminModel, IAdmin } from './admin.interface'
 
-export type IAdmin = {
-  id: string
-  name: UserName
-  profileImage: string
-  dateOfBirth?: string
-  email: string
-  contactNo: string
-  emergencyContactNo: string
-  gender?: 'male' | 'female'
-  permanentAddress?: string
-  presentAddress?: string
-  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
+const AdminSchema = new Schema<IAdmin, AdminModel>(
+  {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
 
-  managementDepartment: Types.ObjectId
-  designation: string
-}
+    name: {
+      type: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
+          type: String,
+          required: true,
+        },
+        middleName: {
+          type: String,
+          required: false,
+        },
+      },
+      required: true,
+    },
+    dateOfBirth: {
+      type: String,
+    },
+    gender: {
+      type: String,
+      enum: ['male', 'female'],
+    },
+    bloodGroup: {
+      type: String,
+      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    contactNo: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    emergencyContactNo: {
+      type: String,
+      required: true,
+    },
+    presentAddress: {
+      type: String,
+      required: true,
+    },
+    permanentAddress: {
+      type: String,
+      required: true,
+    },
+    managementDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'ManagementDepartment',
+      required: true,
+    },
+    designation: {
+      type: String,
+      required: true,
+    },
+    profileImage: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
-export type AdminModel = Model<IAdmin, Record<string, unknown>>
-
-export type IAdminFilters = {
-  searchTerm?: string
-  id?: string
-  email?: string
-  contactNo?: string
-  emergencyContactNo?: string
-  gender?: 'male' | 'female'
-  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
-  managementDepartment?: string
-  designation?: string
-}
+export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema)
