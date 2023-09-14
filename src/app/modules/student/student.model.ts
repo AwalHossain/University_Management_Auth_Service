@@ -22,7 +22,6 @@ const StudentSchema = new Schema<IStudent, StudentModel>(
         type: String,
         required: true,
       },
-      required: true,
     },
     gender: {
       type: String,
@@ -88,7 +87,6 @@ const StudentSchema = new Schema<IStudent, StudentModel>(
         type: String,
         required: true,
       },
-      required: true,
     },
     localGuardian: {
       name: {
@@ -107,7 +105,6 @@ const StudentSchema = new Schema<IStudent, StudentModel>(
         type: String,
         required: true,
       },
-      required: true,
     },
     academicFaculty: {
       type: Schema.Types.ObjectId,

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\Awal\\Videos\\Auth-Service\\logs\\winston\\error\\.ba1314b02ec1aac5795e543028f1287397802b1b-audit.json",
+    "files": [
+        {
+            "date": 1694684949121,
+            "name": "C:\\Users\\Awal\\Videos\\Auth-Service\\logs\\winston\\error\\error-2023-14-09-15.log",
+            "hash": "df98307b8dcb7ec1fe7770b65518a68e74fce5cd64dfa30b3f8ed9b70953f10d"
+        }
+    ],
+    "hashType": "sha256"
+}
