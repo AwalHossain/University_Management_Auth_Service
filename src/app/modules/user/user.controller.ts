@@ -1,21 +1,15 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { Request, RequestHandler, Response } from 'express'
 import httpStatus from 'http-status'
 import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
 import { Iuser } from './user.interface'
 import { UserService } from './users.service'
 
-const createUser: RequestHandler = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { user } = req.body
+const createStudent: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { student, ...userData } = req.body
 
-    const result = await UserService.createUser(user)
-
-    res.status(201).json({
-      success: true,
-      message: 'user created successfully!',
-      data: result,
-    })
+    const result = await UserService.createStudent(student, userData)
 
     sendResponse<Iuser>(res, {
       statusCode: httpStatus.CREATED,
@@ -23,10 +17,41 @@ const createUser: RequestHandler = catchAsync(
       message: 'user created successfully!',
       data: result,
     })
-    next()
+  }
+)
+
+const createFaculty: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { faculty, ...userData } = req.body
+
+    const result = await UserService.createFaculty(faculty, userData)
+
+    sendResponse<Iuser>(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: 'user created successfully!',
+      data: result,
+    })
+  }
+)
+
+const createAdmin: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { admin, ...userData } = req.body
+
+    const result = await UserService.createAdmin(admin, userData)
+
+    sendResponse<Iuser>(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: 'user created successfully!',
+      data: result,
+    })
   }
 )
 
 export const UserController = {
-  createUser,
+  createStudent,
+  createFaculty,
+  createAdmin,
 }
