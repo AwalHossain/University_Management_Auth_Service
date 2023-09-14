@@ -34,6 +34,26 @@
       "date": 1686719763605,
       "name": "/workspaces/University-Management/logs/winston/success/success-2023-14-06-05.log",
       "hash": "b68b9ea803e0ea571aabda121988efaf1a2b559281a830348279a0bae22adb16"
+    },
+    {
+      "date": 1686765658747,
+      "name": "/workspaces/University-Management/logs/winston/success/success-2023-14-06-18.log",
+      "hash": "3a9a5641de0b12022e2d44ad38811bda4ae258c19a744aa4a9799e37807a43f7"
+    },
+    {
+      "date": 1686917888592,
+      "name": "/workspaces/University-Management/logs/winston/success/success-2023-16-06-12.log",
+      "hash": "f87dcf0d287f73660e5313561fa73b57dd87c96bd97d9b3f8c79eafb3bcc2d64"
+    },
+    {
+      "date": 1686922774348,
+      "name": "/workspaces/University-Management/logs/winston/success/success-2023-16-06-13.log",
+      "hash": "2131a5a3fa2b34d51e2cd632341d8e72bf5bec5a9b7e1d9988a0776cfcfd0c0b"
+    },
+    {
+      "date": 1687340621520,
+      "name": "/workspaces/University-Management/logs/winston/success/success-2023-21-06-09.log",
+      "hash": "8adbd53401f6e4043b54c4461167a8b9c4a211fb7be96cc9c828e6a487159422"
     }
   ],
   "hashType": "sha256"

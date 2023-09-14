@@ -1,12 +1,12 @@
+import httpStatus from 'http-status'
 import { Schema, model } from 'mongoose'
+import ApiError from '../../../errors/ApiError'
 import {
   academicSemesterCodes,
   academicSemesterMonths,
   academicSemesterTitles,
 } from './academicSemester.constant'
 import { IAcademicSemester } from './academicSemester.interface'
-import ApiError from '../../../errors/ApiError'
-import httpStatus from 'http-status'
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
   {
@@ -16,7 +16,7 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
       enum: academicSemesterTitles,
     },
     year: {
-      type: Number,
+      type: String,
       required: true,
     },
     code: {

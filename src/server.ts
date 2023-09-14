@@ -1,8 +1,8 @@
+import { Server } from 'http'
 import mongoose from 'mongoose'
 import app from './app'
 import config from './config/index'
 import { errorLogger, logger } from './shared/logger'
-import { Server } from 'http'
 
 // Handle uncaught exceptions  - synchronous errors that occur during the execution of the program that are not handled by try/catch blocks
 process.on('uncaughtException', error => {
