@@ -10,7 +10,7 @@ app.use(cors())
 
 // Test route
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
+  res.send('This is for testing purposes')
 })
 
 export default app
