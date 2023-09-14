@@ -1,7 +1,7 @@
 import express, { Application } from 'express'
-import { Request, Response } from 'express'
 import cors from 'cors'
-import usersRouter from './app/modules/users/users.route'
+import { UserRoutes } from './app/modules/user/user.route'
+import globalErrorHandler from './app/middleware/globalErrorHandler'
 
 const app: Application = express()
 
@@ -12,11 +12,15 @@ app.use(cors())
 console.log(process.env.PORT, 'port')
 
 // Routes
-app.use('/api/v1/users', usersRouter)
+app.use('/api/v1/users', UserRoutes)
 
 // Test route
-app.get('/', (req: Request, res: Response) => {
-  res.send('This is for testing purposes')
-})
+// app.get('/', async (req: Request, res: Response) => {
+//   throw new Error('Testing Error logger')
+//   // console.log(x);
+
+// })
+
+app.use(globalErrorHandler)
 
 export default app
