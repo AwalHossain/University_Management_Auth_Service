@@ -1,8 +1,7 @@
-import express, { Application } from 'express'
 import cors from 'cors'
-import { UserRoutes } from './app/modules/user/user.route'
+import express, { Application } from 'express'
 import globalErrorHandler from './app/middleware/globalErrorHandler'
-
+import routes from './app/routes/index'
 const app: Application = express()
 
 app.use(express.json())
@@ -12,7 +11,7 @@ app.use(cors())
 console.log(process.env.PORT, 'port')
 
 // Routes
-app.use('/api/v1/users', UserRoutes)
+app.use('/api/v1/', routes)
 
 // Test route
 // app.get('/', async (req: Request, res: Response) => {
