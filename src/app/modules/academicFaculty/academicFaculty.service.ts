@@ -5,6 +5,7 @@ import { IpaginationOptions } from '../../../interfaces/pagination'
 import { academicFacultyFilterableFields } from './academicFaculty.constants'
 import {
   IAcademicFaculty,
+  IAcademicFacultyEvent,
   IAcademicFacultyFilters,
 } from './academicFaculty.interface'
 import { AcademicFaculty } from './academicFaculty.model'
@@ -96,10 +97,72 @@ const deleteFaculty = async (id: string) => {
   return result
 }
 
+
+const creatAcademicFacultyFromEvent = async (payload: IAcademicFacultyEvent) => {
+
+  try {
+    const result = await AcademicFaculty.create({
+      title: payload.title,
+      syncId: payload.id
+    })
+
+    console.log(result, 'event created result');
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+
+const updateAcademicFacultyFromEvent = async (payload: IAcademicFacultyEvent) => {
+  try {
+    const updatedData = {
+      title: payload.title
+    }
+    const result = await AcademicFaculty.findOneAndUpdate(
+      {
+        syncId: payload.id
+      },
+      updatedData,
+      {
+        new: true
+      }
+    )
+
+    console.log(result, 'event updated result');
+  } catch (err) {
+    console.log(err);
+  }
+
+
+
+}
+
+
+const deleteAcademicFacultyFromEvent = async (payload: IAcademicFacultyEvent) => {
+
+  try {
+    const result = await AcademicFaculty.findOneAndDelete({
+      syncId: payload.id
+    })
+
+    console.log(result, 'event deleted result')
+
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+
+
 export const AcademicFacultyService = {
   createFaculty,
   getSingleFaculty,
   getAllFaculties,
   updateFaculty,
   deleteFaculty,
+  creatAcademicFacultyFromEvent,
+  updateAcademicFacultyFromEvent,
+  deleteAcademicFacultyFromEvent
 }

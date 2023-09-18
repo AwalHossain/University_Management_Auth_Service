@@ -14,6 +14,11 @@ const academicFacultySchema = new Schema<
       required: true,
       unique: true,
     },
+    syncId: {
+      type: String,
+      required: false,
+      unique: true
+    },
   },
 
   {
@@ -21,7 +26,8 @@ const academicFacultySchema = new Schema<
     toJSON: {
       virtuals: true,
     },
-  }
+  },
+
 )
 
 export const AcademicFaculty = model<IAcademicFaculty, IAcademicFacultyModel>(
