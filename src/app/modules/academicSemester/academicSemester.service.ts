@@ -11,6 +11,7 @@ import {
 import {
   IAcademicSemester,
   IAcademicSemesterFilterableFields,
+  initAcademicSemesterEvent,
 } from './academicSemester.interface'
 import { AcademicSemester } from './academicSemester.model'
 
@@ -116,10 +117,47 @@ const deleteSemester = async (
   return result
 }
 
+
+const createAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
+  const result = await AcademicSemester.create({
+    title: e.title,
+    year: e.year,
+    code: e.code,
+    startMonth: e.startMonth,
+    endMonth: e.endMonth,
+    syncId: e.id
+  })
+  console.log(result, 'from event')
+}
+
+const updateAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
+  const result = await AcademicSemester.findOneAndUpdate({ syncId: e.id },
+    {
+      $set: {
+        title: e.title,
+        year: e.year,
+        code: e.code,
+        startMonth: e.startMonth,
+        endMonth: e.endMonth,
+      }
+    },
+    { new: true }
+  )
+  console.log(result, 'from event updated')
+}
+
+const deleteAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
+  const result = await AcademicSemester.findOneAndDelete({ syncId: e.id }, { new: true })
+  console.log(result, 'from event deleted')
+}
+
 export const AcademicSemesterService = {
   createSemester,
   getAllSemester,
   getSingleSemester,
   updateSemester,
   deleteSemester,
+  createAcademicSemesterFromEvent,
+  updateAcademicSemesterFromEvent,
+  deleteAcademicSemesterFromEvent
 }

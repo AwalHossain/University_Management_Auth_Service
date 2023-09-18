@@ -24,6 +24,15 @@ export type IAcademicSemester = {
   code: IAcademicSemesterCodes
   startMonth: IAcademicSemesterMonths
   endMonth: IAcademicSemesterMonths
+  syncId?: string
+}
+export type initAcademicSemesterEvent = {
+  title: IAcademicSemesterTitles
+  year: string
+  code: IAcademicSemesterCodes
+  startMonth: IAcademicSemesterMonths
+  endMonth: IAcademicSemesterMonths
+  id: string
 }
 
 export type IAcademicSemesterFilterableFields = {
