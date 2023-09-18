@@ -2,9 +2,11 @@ import { SortOrder } from 'mongoose'
 import { paginationHelpers } from '../../../helpers/paginationHelper'
 import { IGenericResponse } from '../../../interfaces/common'
 import { IpaginationOptions } from '../../../interfaces/pagination'
+import { AcademicFaculty } from '../academicFaculty/academicFaculty.model'
 import { academicDepartmentFilterableFields } from './academicDepartment.constant'
 import {
   IAcademicDepartment,
+  IAcademicDepartmentEvent,
   IAcademicDepartmentFilters,
 } from './academicDepartment.interface'
 import { AcademicDepartment } from './academicDepartment.model'
@@ -109,10 +111,72 @@ const deleteDepartment = async (
   return result
 }
 
+
+
+/**
+ * @description (1) Create a new department from the redis event
+ * @description (2) Update the department from the redis event
+ * @description (3) Delete the department from the redis event
+ */
+
+const createAcademicDepartmentFromEvent = async (e: IAcademicDepartmentEvent) => {
+
+  try {
+    const academicFaculty = await AcademicFaculty.findOne({ syncId: e.academicFacultyId })
+
+    const academicDepartment = await AcademicDepartment.create({
+      title: e.title,
+      academicFaculty: academicFaculty?._id,
+      syncId: e.id,
+    });
+
+    const result = await academicDepartment.populate('academicFaculty');
+    console.log(result, 'from created event')
+  } catch (err) {
+    console.log(err);
+  }
+
+
+}
+
+const updateAcademicDepartmentFromEvent = async (e: IAcademicDepartmentEvent) => {
+  try {
+    const payload = {
+      title: e.title,
+    }
+    const result = await AcademicDepartment.findOneAndUpdate(
+      { syncId: e.id },
+      {
+        $set: payload,
+      },
+      {
+        new: true,
+      }
+    )
+    console.log(result, 'from updated event')
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+const deleteAcademicDepartmentFromEvent = async (e: IAcademicDepartmentEvent) => {
+
+  try {
+    const result = await AcademicDepartment.findOneAndDelete({ syncId: e.id })
+    console.log(result, 'from deleted event')
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const academicDepartmentService = {
   getAllDepartments,
   createDepartment,
   getSingleDepartment,
   updateDepartment,
   deleteDepartment,
+  createAcademicDepartmentFromEvent,
+  updateAcademicDepartmentFromEvent,
+  deleteAcademicDepartmentFromEvent
 }
