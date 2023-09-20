@@ -1,12 +1,12 @@
 import { ErrorRequestHandler } from 'express'
-import config from '../../config'
-import { errorLogger } from '../../shared/logger'
-import { IGenericErrorMessage } from '../../interfaces/error'
-import handleValidationError from '../../errors/handleValidationError'
-import { IGenericErrorResponse } from '../../interfaces/common'
-import ApiError from '../../errors/ApiError'
 import { ZodError } from 'zod'
+import config from '../../config'
+import ApiError from '../../errors/ApiError'
+import handleValidationError from '../../errors/handleValidationError'
 import handZodError from '../../errors/handleZodError'
+import { IGenericErrorResponse } from '../../interfaces/common'
+import { IGenericErrorMessage } from '../../interfaces/error'
+import { errorLogger } from '../../shared/logger'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   // eslint-disable-next-line no-unused-expressions
@@ -33,12 +33,37 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     message = error?.message
     errorMessages = error?.message
       ? [
-          {
-            path: '',
-            message: error?.message,
-          },
-        ]
+        {
+          path: '',
+          message: error?.message,
+        },
+      ]
       : []
+  } else if (error.code === 11000) {
+    statusCode = 400;
+    message = `Duplicate key error`;
+
+
+    // Extract the keyPattern and keyValue properties
+    const { keyPattern, keyValue } = error;
+
+    // Create a dynamic error message based on the index causing the error
+    let duplicateField = '';
+    if (keyPattern) {
+      const fields = Object.keys(keyPattern);
+      if (fields.length > 0) {
+        duplicateField = fields[0]; // Assuming there's only one field in the index
+      }
+    }
+
+    const dynamicErrorMessage = `Duplicate ${duplicateField} (${keyValue[duplicateField]})`;
+    message = dynamicErrorMessage;
+    errorMessages = [
+      {
+        path: '',
+        message: 'Duplicate key error',
+      },
+    ];
   }
 
   res.status(statusCode).json({
