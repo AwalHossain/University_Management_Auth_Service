@@ -1,5 +1,5 @@
 import cors from 'cors'
-import express, { Application } from 'express'
+import express, { Application, Request, Response } from 'express'
 import globalErrorHandler from './app/middleware/globalErrorHandler'
 import routes from './app/routes/index'
 const app: Application = express()
@@ -11,14 +11,13 @@ app.use(cors())
 console.log(process.env.PORT, 'port')
 
 // Routes
-app.use('/api/v1/', routes)
+app.use('/api/v1', routes)
 
 // Test route
-// app.get('/', async (req: Request, res: Response) => {
-//   throw new Error('Testing Error logger')
-//   // console.log(x);
+app.get('/', async (req: Request, res: Response) => {
+    res.status(200).send('helelo')
 
-// })
+})
 
 app.use(globalErrorHandler)
 
