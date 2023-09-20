@@ -85,7 +85,7 @@ const createStudent = async (
           path: 'academicSemester',
         },
         {
-          path: 'acdemicDepartment',
+          path: 'academicDepartment',
         },
         {
           path: 'academicFaculty',
