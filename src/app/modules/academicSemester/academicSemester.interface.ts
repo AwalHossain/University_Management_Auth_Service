@@ -40,6 +40,7 @@ export type IAcademicSemesterFilterableFields = {
   title?: IAcademicSemesterTitles
   code?: IAcademicSemesterCodes
   year?: number
+  syncId?: string
 }
 
 export type AcademicSemesterModel = Model<IAcademicSemester>

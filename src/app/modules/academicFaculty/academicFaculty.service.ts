@@ -2,7 +2,7 @@ import { SortOrder } from 'mongoose'
 import { paginationHelpers } from '../../../helpers/paginationHelper'
 import { IGenericResponse } from '../../../interfaces/common'
 import { IpaginationOptions } from '../../../interfaces/pagination'
-import { academicFacultyFilterableFields } from './academicFaculty.constants'
+import { academicFacultySearchableFields } from './academicFaculty.constants'
 import {
   IAcademicFaculty,
   IAcademicFacultyEvent,
@@ -26,7 +26,7 @@ const getAllFaculties = async (
   const andCondtions = []
   if (searchTerm) {
     andCondtions.push({
-      $or: academicFacultyFilterableFields.map(field => ({
+      $or: academicFacultySearchableFields.map(field => ({
         [field]: {
           $regex: searchTerm,
           $options: 'i',

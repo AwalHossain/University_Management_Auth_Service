@@ -119,36 +119,48 @@ const deleteSemester = async (
 
 
 const createAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
-  const result = await AcademicSemester.create({
-    title: e.title,
-    year: e.year,
-    code: e.code,
-    startMonth: e.startMonth,
-    endMonth: e.endMonth,
-    syncId: e.id
-  })
-  console.log(result, 'from event')
+  try {
+    const result = await AcademicSemester.create({
+      title: e.title,
+      year: e.year,
+      code: e.code,
+      startMonth: e.startMonth,
+      endMonth: e.endMonth,
+      syncId: e.id
+    })
+    console.log(result, 'from event created')
+  } catch (err) {
+    console.log(err, 'from event')
+  }
 }
 
 const updateAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
-  const result = await AcademicSemester.findOneAndUpdate({ syncId: e.id },
-    {
-      $set: {
-        title: e.title,
-        year: e.year,
-        code: e.code,
-        startMonth: e.startMonth,
-        endMonth: e.endMonth,
-      }
-    },
-    { new: true }
-  )
-  console.log(result, 'from event updated')
+  try {
+    const result = await AcademicSemester.findOneAndUpdate({ syncId: e.id },
+      {
+        $set: {
+          title: e.title,
+          year: e.year,
+          code: e.code,
+          startMonth: e.startMonth,
+          endMonth: e.endMonth,
+        }
+      },
+      { new: true }
+    )
+    console.log(result, 'from event updated')
+  } catch (err) {
+    console.log(err, 'from event')
+  }
 }
 
 const deleteAcademicSemesterFromEvent = async (e: initAcademicSemesterEvent) => {
-  const result = await AcademicSemester.findOneAndDelete({ syncId: e.id }, { new: true })
-  console.log(result, 'from event deleted')
+  try {
+    const result = await AcademicSemester.findOneAndDelete({ syncId: e.id }, { new: true })
+    console.log(result, 'from event deleted')
+  } catch (err) {
+    console.log(err, 'from event')
+  }
 }
 
 export const AcademicSemesterService = {
