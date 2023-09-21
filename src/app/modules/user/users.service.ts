@@ -2,6 +2,7 @@ import httpStatus from 'http-status'
 import mongoose from 'mongoose'
 import config from '../../../config'
 import ApiError from '../../../errors/ApiError'
+import { RedisClient } from '../../../shared/redis'
 import { IAcademicSemester } from '../academicSemester/academicSemester.interface'
 import { AcademicSemester } from '../academicSemester/academicSemester.model'
 import { IAdmin } from '../admin/admin.interface'
@@ -10,6 +11,7 @@ import { IFaculty } from '../faculty/faculty.interface'
 import { Faculty } from '../faculty/faculty.model'
 import { IStudent } from '../student/student.interface'
 import { Student } from '../student/student.model'
+import { STUDENT_EVENT_CREATED } from './user.constant'
 import { Iuser } from './user.interface'
 import { User } from './user.model'
 import {
@@ -94,6 +96,14 @@ const createStudent = async (
     })
   }
 
+  if (newUserAllData) {
+    console.log('newUserAllData', newUserAllData);
+
+    const check = await RedisClient.publish(STUDENT_EVENT_CREATED, JSON.stringify(newUserAllData.student));
+    console.log(check, 'check');
+
+  }
+
   return newUserAllData
 }
 
@@ -164,8 +174,20 @@ const createFaculty = async (
       ],
     })
   }
+
+  if (newUserAllData) {
+    console.log('newUserAllData');
+
+    const check = await RedisClient.publish(STUDENT_EVENT_CREATED, JSON.stringify(newUserAllData));
+    console.log(check, 'check');
+
+  }
+
   return newUserAllData
 }
+
+
+
 const createAdmin = async (
   admin: IAdmin,
   user: Iuser
