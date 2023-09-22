@@ -1,5 +1,5 @@
 import httpStatus from 'http-status'
-import { Secret } from 'jsonwebtoken'
+import { JwtPayload, Secret } from 'jsonwebtoken'
 import config from '../../../config'
 import ApiError from '../../../errors/ApiError'
 import { jwtHelpers } from '../../../helpers/jwtHelpers'
@@ -18,8 +18,14 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginResponse> => {
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist')
   }
+  console.log(User.isPasswordMatched(password, isUserExist.password), 'isUserExist');
 
-  if (!User.isPasswordMatched(password, isUserExist.password)) {
+  const isPasswordMatched = await User.isPasswordMatched(password, isUserExist.password)
+
+  console.log(isPasswordMatched, 'isPasswordMatched');
+
+
+  if (!isPasswordMatched) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password does not match')
   }
 
@@ -73,7 +79,7 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
   // create new access token
 
   const newAccessToken = jwtHelpers.createToken(
-    { id: isUserExist.id, role: isUserExist.role },
+    { userId: isUserExist.id, role: isUserExist.role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   )
@@ -83,7 +89,33 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
   }
 }
 
+
+const changePassword = async (user: JwtPayload | null
+  , payload: any): Promise<any> => {
+
+  const { oldPassword, newPassword } = payload;
+
+  const isUserExist = await User.findOne({ id: user?.userId }).select('+password');
+
+  console.log(isUserExist, 'isUserExist');
+
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist')
+  }
+
+  if (!User.isPasswordMatched(oldPassword, isUserExist?.password)) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Old password does not match')
+  }
+
+  isUserExist.password = newPassword;
+  isUserExist.needsPasswordChange = false;
+
+  await isUserExist.save();
+}
+
+
 export const AuthService = {
   loginUser,
   refreshToken,
+  changePassword,
 }

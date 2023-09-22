@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import config from '../../../config'
 import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
@@ -21,12 +23,14 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     statusCode: 200,
     success: true,
     message: 'User logged in successfully',
-    data: others,
+    data: result,
   })
 })
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.cookies, 'refreshToken');
   const { refreshToken } = req.cookies
+
   const result = await AuthService.refreshToken(refreshToken)
 
   const cookieOptions = {
@@ -43,21 +47,22 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-// const changePassword = catchAsync(async(req: Request, res: Response) => {
+const changePassword = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const { ...passWordData } = req.body;
+  const result = await AuthService.changePassword(user, passWordData);
 
-//             const {...passWordData} = req.body;
-//             const result = await AuthService.changePassword(changePasswordData);
-
-//             sendResponse(res,{
-//                 statusCode: 200,
-//                 success: true,
-//                 message: 'Password changed successfully',
-//                 data: result,
-//             })
-//         }
-//     )
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Password changed successfully',
+    data: result,
+  })
+}
+)
 
 export const AuthController = {
   loginUser,
   refreshToken,
+  changePassword,
 }
