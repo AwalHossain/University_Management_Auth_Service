@@ -32,7 +32,7 @@ async function bootstrap() {
 
   // Handle unhandled promise rejections - asynchronous errors that occur during the execution of the program that are not handled by try/catch blocks
   process.on('unhandledRejection', error => {
-    console.log(`unhandledRejection, we are closing server....`)
+    console.log(`unhandledRejection, we are closing server....`, error)
 
     if (server) {
       server.close(() => {
