@@ -7,32 +7,36 @@ import { jwtHelpers } from '../../helpers/jwtHelpers'
 
 const auth =
   (...requiredRoles: string[]) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const token = req.headers.authorization
-      if (!token) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Not authorized')
-      }
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const token = req.headers.authorization
+        console.log(token, 'token');
 
-      // verify token
-      let verifiedUser = null
-
-      verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret)
-
-      req.user = verifiedUser // add user to req object
-
-      // use role as authguard
-
-      if (requiredRoles.length) {
-        if (!requiredRoles.includes(verifiedUser.role)) {
-          throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden')
+        if (!token) {
+          throw new ApiError(httpStatus.UNAUTHORIZED, 'Not authorized')
         }
-      }
 
-      next()
-    } catch (error) {
-      next(error)
+        // verify token
+        let verifiedUser = null
+
+        verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret)
+
+        req.user = verifiedUser // add user to req object
+
+        console.log(req.user, 'req.user');
+
+        // use role as authguard
+
+        if (requiredRoles.length) {
+          if (!requiredRoles.includes(verifiedUser.role)) {
+            throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden')
+          }
+        }
+
+        next()
+      } catch (error) {
+        next(error)
+      }
     }
-  }
 
 export default auth
