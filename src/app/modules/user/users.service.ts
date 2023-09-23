@@ -11,7 +11,7 @@ import { IFaculty } from '../faculty/faculty.interface'
 import { Faculty } from '../faculty/faculty.model'
 import { IStudent } from '../student/student.interface'
 import { Student } from '../student/student.model'
-import { STUDENT_EVENT_CREATED } from './user.constant'
+import { ADMIN_EVENT_CREATED, FACULTY_EVENT_CREATED, STUDENT_EVENT_CREATED } from './user.constant'
 import { Iuser } from './user.interface'
 import { User } from './user.model'
 import {
@@ -178,7 +178,7 @@ const createFaculty = async (
   if (newUserAllData) {
     console.log('newUserAllData');
 
-    const check = await RedisClient.publish(STUDENT_EVENT_CREATED, JSON.stringify(newUserAllData));
+    const check = await RedisClient.publish(FACULTY_EVENT_CREATED, JSON.stringify(newUserAllData));
     console.log(check, 'check');
 
   }
@@ -252,6 +252,16 @@ const createAdmin = async (
       ],
     })
   }
+
+  if (newUserAllData) {
+    console.log('newUserAllData');
+
+    const check = await RedisClient.publish(ADMIN_EVENT_CREATED, JSON.stringify(newUserAllData));
+    console.log(check, 'check');
+
+  }
+
+
   return newUserAllData
 }
 
