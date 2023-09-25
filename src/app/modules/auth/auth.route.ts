@@ -19,7 +19,7 @@ router.post(
   AuthController.refreshToken
 )
 
-router.post(
+router.patch(
   '/change-password',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY, ENUM_USER_ROLE.STUDENT),
   validateRequest(AuthValidation.changePasswordZodSchema),
