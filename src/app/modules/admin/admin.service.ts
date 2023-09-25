@@ -67,7 +67,7 @@ const getAllAdmins = async (
 }
 
 const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
-  const result = await Admin.findOne({ id }).populate('ManagementDepartment')
+  const result = await Admin.findById(id).populate('managementDepartment')
   return result
 }
 
@@ -88,7 +88,7 @@ const updateAdmin = async (
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof Partial<IAdmin>
-      ;(updatedStudentData as any)[nameKey] = name[key as keyof typeof name]
+        ; (updatedStudentData as any)[nameKey] = name[key as keyof typeof name]
     })
   }
 
