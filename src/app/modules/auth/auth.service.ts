@@ -91,7 +91,7 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
 
 
 const changePassword = async (user: JwtPayload | null
-  , payload: any): Promise<any> => {
+  , payload: any): Promise<void> => {
 
   const { oldPassword, newPassword } = payload;
 
