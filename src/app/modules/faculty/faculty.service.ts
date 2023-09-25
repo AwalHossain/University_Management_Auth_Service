@@ -7,6 +7,8 @@ import { IGenericResponse } from '../../../interfaces/common'
 import httpStatus from 'http-status'
 import ApiError from '../../../errors/ApiError'
 import { IpaginationOptions } from '../../../interfaces/pagination'
+import { RedisClient } from '../../../shared/redis'
+import { FACULTY_EVENT_UPDATED } from '../user/user.constant'
 import { User } from '../user/user.model'
 import { facultySearchableFields } from './faculty.constant'
 import { IFaculty, IFacultyFilters } from './faculty.interface'
@@ -91,14 +93,19 @@ const updateFaculty = async (
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
       const nameKey = `name.${key}` as keyof Partial<IFaculty>
-      ;(updatedFacultyData as any)[nameKey] = name[key as keyof typeof name]
+        ; (updatedFacultyData as any)[nameKey] = name[key as keyof typeof name]
     })
   }
 
   const result = await Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
     new: true,
   })
-  return result
+
+
+  if (result) {
+    await RedisClient.publish(FACULTY_EVENT_UPDATED, JSON.stringify(result))
+  }
+  return result;
 }
 
 const deleteFaculty = async (id: string): Promise<IFaculty | null> => {
