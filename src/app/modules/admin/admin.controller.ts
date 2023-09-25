@@ -30,7 +30,7 @@ const getSingleAdmin = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IAdmin>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Admin retrieved successfully !',
+    message: 'Single Admin retrieved successfully !',
     data: result,
   })
 })
