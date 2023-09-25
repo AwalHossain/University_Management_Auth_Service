@@ -4,6 +4,7 @@ import { AcademicFacultyRoutes } from '../modules/academicFaculty/academicFacult
 import { AcademicSemesterRoutes } from '../modules/academicSemester/academicSemester.route'
 import { AdminRoutes } from '../modules/admin/admin.route'
 import { AuthRoutes } from '../modules/auth/auth.route'
+import { FacultyRoutes } from '../modules/faculty/faculty.route'
 import { ManagementDepartmentRoutes } from '../modules/managementDepartment/managementDepartment.routes'
 import { UserRoutes } from '../modules/user/user.route'
 
@@ -42,6 +43,11 @@ const moduleRoutes = [
     path: '/admin',
     route: AdminRoutes,
   },
+  {
+    path: '/faculties',
+    route: FacultyRoutes
+  },
+
 ]
 
 moduleRoutes.forEach(moduleRoute => {
