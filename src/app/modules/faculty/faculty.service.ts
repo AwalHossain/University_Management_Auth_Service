@@ -9,7 +9,6 @@ import ApiError from '../../../errors/ApiError'
 import { IpaginationOptions } from '../../../interfaces/pagination'
 import { RedisClient } from '../../../shared/redis'
 import { FACULTY_EVENT_UPDATED } from '../user/user.constant'
-import { User } from '../user/user.model'
 import { facultySearchableFields } from './faculty.constant'
 import { IFaculty, IFacultyFilters } from './faculty.interface'
 import { Faculty } from './faculty.model'
@@ -70,7 +69,7 @@ const getAllFaculties = async (
 }
 
 const getSingleFaculty = async (id: string): Promise<IFaculty | null> => {
-  const result = await Faculty.findOne({ id })
+  const result = await Faculty.findOne({ _id: id })
     .populate('academicDepartment')
     .populate('academicFaculty')
 
@@ -81,7 +80,7 @@ const updateFaculty = async (
   id: string,
   payload: Partial<IFaculty>
 ): Promise<IFaculty | null> => {
-  const isExist = await Faculty.findOne({ id })
+  const isExist = await Faculty.findOne({ _id: id })
 
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !')
@@ -97,7 +96,7 @@ const updateFaculty = async (
     })
   }
 
-  const result = await Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
+  const result = await Faculty.findOneAndUpdate({ _id: id }, updatedFacultyData, {
     new: true,
   })
 
@@ -110,30 +109,30 @@ const updateFaculty = async (
 
 const deleteFaculty = async (id: string): Promise<IFaculty | null> => {
   // check if the faculty is exist
-  const isExist = await Faculty.findOne({ id })
+  const isExist = await Faculty.findOne({ _id: id });
 
   if (!isExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !')
+    throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found !');
   }
 
-  const session = await mongoose.startSession()
+  const session = await mongoose.startSession();
 
   try {
-    session.startTransaction()
+    session.startTransaction();
     //delete faculty first
-    const faculty = await Faculty.findOneAndDelete({ id }, { session })
+    const faculty = await Faculty.findOneAndDelete({ _id: id }, { session });
     if (!faculty) {
-      throw new ApiError(404, 'Failed to delete student')
+      throw new ApiError(404, 'Failed to delete student');
     }
     //delete user
-    await User.deleteOne({ id })
-    session.commitTransaction()
-    session.endSession()
+    // await User.deleteOne({ id: id });
+    session.commitTransaction();
+    session.endSession();
 
-    return faculty
+    return faculty;
   } catch (error) {
-    session.abortTransaction()
-    throw error
+    session.abortTransaction();
+    throw error;
   }
 }
 

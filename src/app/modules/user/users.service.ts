@@ -177,24 +177,7 @@ const createFaculty = async (
   }
 
   if (newUserAllData) {
-    console.log('newUserAllData');
-    const e = newUserAllData.faculty as any;
-    const facultyData = {
-      facultyId: e.id,
-      firstName: e.name.firstName,
-      lastName: e.name.lastName,
-      middleName: e.name.middleName,
-      email: e.email,
-      contactNo: e.contactNo,
-      gender: e.gender,
-      designation: e.designation,
-      bloodGroup: e.bloodGroup,
-      academicDepartmentId: e.academicDepartment?.syncId,
-      academicFacultyId: e.academicFaculty?.syncId,
-      profileImage: e.profileImage,
-    };
-
-    const check = await RedisClient.publish(FACULTY_EVENT_CREATED, JSON.stringify(facultyData));
+    const check = await RedisClient.publish(FACULTY_EVENT_CREATED, JSON.stringify(newUserAllData.faculty));
     console.log(check, 'check');
 
   }

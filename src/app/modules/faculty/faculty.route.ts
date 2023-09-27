@@ -7,15 +7,6 @@ import { FacultyValidation } from './faculty.validation';
 
 const router = express.Router();
 
-router.get(
-  '/:id',
-  auth(
-    ENUM_USER_ROLE.SUPER_ADMIN,
-    ENUM_USER_ROLE.ADMIN,
-    ENUM_USER_ROLE.FACULTY
-  ),
-  FacultyController.getSingleFaculty
-);
 
 router.get(
   '/',
@@ -27,6 +18,19 @@ router.get(
   FacultyController.getAllFaculties
 );
 
+
+
+router.get(
+  '/:id',
+  auth(
+    ENUM_USER_ROLE.SUPER_ADMIN,
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.FACULTY
+  ),
+  FacultyController.getSingleFaculty
+);
+
+
 router.patch(
   '/:id',
   validateRequest(FacultyValidation.updateFacultyZodSchema),
@@ -36,7 +40,7 @@ router.patch(
 
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   FacultyController.deleteFaculty
 );
 
